@@ -1,7 +1,17 @@
-from flask import Flask, render_template, request, redirect, session
-import mysql.connector
-from sentiments import second
+from dotenv import load_dotenv
 import os
+import mysql.connector
+from flask import Flask, render_template, request, redirect, session
+from sentiments import second
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access environment variables
+db_host = os.getenv('DB_HOST', 'localhost')
+db_user = os.getenv('DB_USER', 'user')
+db_password = os.getenv('DB_PASSWORD', 'password')
+db_database = os.getenv('DB_DATABASE', 'database')
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -13,15 +23,14 @@ cursor = None
 
 try:
     conn = mysql.connector.connect(
-        host="localhost",
-        user="walu",
-        password="Aishubujji@123",
-        database="walu"
+        host=db_host,
+        user=db_user,
+        password=db_password,
+        database=db_database
     )
     cursor = conn.cursor()
 except mysql.connector.Error as err:
     print(f"Error: {err}")
-    # Consider exiting or logging the error if connection fails
     exit(1)
 
 @app.route('/')
@@ -84,3 +93,4 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
