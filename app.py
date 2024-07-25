@@ -8,10 +8,10 @@ from sentiments import second
 load_dotenv()
 
 # Access environment variables
-db_host = os.getenv('DB_HOST', 'localhost')
-db_user = os.getenv('DB_USER', 'user')
-db_password = os.getenv('DB_PASSWORD', 'password')
-db_database = os.getenv('DB_DATABASE', 'database')
+db_host = os.getenv('DB_HOST', 'POSTGRES_HOST')
+db_user = os.getenv('DB_USER', 'POSTGRES_USER')
+db_password = os.getenv('DB_PASSWORD', 'POSTGRES_PASSWORD')
+db_database = os.getenv('DB_DATABASE', 'POSTGRES_DATABASE')
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
