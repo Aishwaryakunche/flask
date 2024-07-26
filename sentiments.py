@@ -7,6 +7,16 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from flask import Blueprint, render_template, request
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access API keys
+consumer_key = os.getenv('TWITTER_CONSUMER_KEY')
+consumer_secret = os.getenv('TWITTER_CONSUMER_SECRET')
+access_token = os.getenv('TWITTER_ACCESS_TOKEN')
+access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
 
 # Create a Blueprint for the sentiment analysis functionality
 second = Blueprint("second", __name__, static_folder="static", template_folder="templates")
@@ -24,12 +34,8 @@ class SentimentAnalysis:
 
     def DownloadData(self, keyword, tweets):
         # authenticating
-        consumerKey = 'Nko0W4Gnvo78KqbOgPPxHpzIm'
-        consumerSecret = 'HaseaS0fF0rGMSY3Q0ZjxxMfwkRPWBIi7lHa0u8WMEm1PaLipk'
-        accessToken = '1814220243172294656-vxWoXgnxOKPMkM1zfLaNniDuPGKw6E'
-        accessTokenSecret = 'iEYDn0wEvlFYQrOyd3JBKU1o4xA8nGkR5T6a299FqPVSm'
-        auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
-        auth.set_access_token(accessToken, accessTokenSecret)
+        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth, wait_on_rate_limit=True)
 
         tweets = int(tweets)
