@@ -1,0 +1,10 @@
+[build]
+  # The command to run your build script
+  command = "pip install -r requirements.txt && python app.py"
+
+  # The directory where your build artifacts are located
+  publish = "."
+
+[context.production.environment]
+  # Set the Python version
+  PYTHON_VERSION = "3.11"
